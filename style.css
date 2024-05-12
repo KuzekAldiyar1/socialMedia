@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fafaf8;
+    color: #313131;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    width: 85px;
+    height: auto;
+    border-radius: 10px;
+}
+
+nav a {
+    margin-left: 40px;
+    font-weight: 500;
+    color: #313131;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav a:hover, nav a.active {
+    color:#e6e600; /* Изменяем цвет при наведении */
+}
+
+.post {
+    border: 3px solid goldenrod;
+    margin: 30px 10%;
+    padding: 20px;
+    position: relative;
+}
+
+.post img {
+    width: 100%; /* Ширина изображения на 100% от родительского контейнера */
+    max-width: 400px; /* Максимальная ширина изображения */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.likes img {
+    width: 25px;
+    height: auto;
+    margin-right: 5px;
+    cursor: pointer; /* Добавляем курсор при наведении */
+    transition: transform 0.3s; /* Добавляем анимацию */
+}
+
+.likes img:hover {
+    transform: scale(1.2); /* Увеличиваем размер при наведении */
+}
+
+.comments input {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.comments button {
+    padding: 8px 15px;
+    background-color: #f4f010;
+    color: #313131;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.comments button:hover {
+    background-color: #e6e600;
+}
