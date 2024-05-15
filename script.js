@@ -14,7 +14,7 @@ function createPost(index) {
     const profile = document.createElement('div');
     profile.classList.add('profile');
     profile.innerHTML = `
-        <img src="profile${index % 5 + 1}.jpg" alt="Profile Photo">
+        <img src="randomuser.png" alt="Profile Photo">
         <h2>User${index + 1}</h2>
     `;
     post.appendChild(profile);
