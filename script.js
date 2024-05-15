@@ -66,7 +66,7 @@ function createComments() {
     const comments = document.createElement('div');
     comments.classList.add('comments');
     comments.innerHTML = `
-        <input type="text" placeholder="Add a comment...">
+        <input type="text" placeholder="Добавь свой коммент">
         <button onclick="addComment(this)">Post</button>
     `;
     return comments;
