@@ -1,6 +1,45 @@
 document.addEventListener('DOMContentLoaded', function() {
     const postsContainer = document.getElementById('posts');
 
+    for (let i = 0; i < 100; i++) {
+        const post = createPost(i);
+        postsContainer.appendChild(post);
+    }
+});
+
+function createPost(index) {
+    const post = document.createElement('div');
+    post.classList.add('post');
+
+    const profile = document.createElement('div');
+    profile.classList.add('profile');
+    profile.innerHTML = `
+        <img src="profile${index % 5 + 1}.jpg" alt="Profile Photo">
+        <h2>User${index + 1}</h2>
+    `;
+    post.appendChild(profile);
+
+    const image = document.createElement('img');
+    image.src = getImageUrl(index);
+    image.alt = 'Post Image';
+    post.appendChild(image);
+
+    const actions = document.createElement('div');
+    actions.classList.add('actions');
+    const likes = createLikes();
+    const comments = createComments();
+    actions.appendChild(likes);
+    actions.appendChild(comments);
+    post.appendChild(actions);
+
+    const commentsSection = document.createElement('div');
+    commentsSection.classList.add('comments-section');
+    post.appendChild(commentsSection);
+
+    return post;
+}
+
+function getImageUrl(index) {
     const imageUrls = [
         'https://st3.depositphotos.com/29384342/34115/i/450/depositphotos_341157888-stock-photo-recommendation-sports-student.jpg',
         'https://i1.sndcdn.com/avatars-xTn7g3zaC84sIgRY-E68SrA-t240x240.jpg',
@@ -10,72 +49,46 @@ document.addEventListener('DOMContentLoaded', function() {
         'https://images.pexels.com/photos/3794359/pexels-photo-3794359.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
         'https://img.freepik.com/premium-photo/swirly-textured-background-collection_761958-535.jpg',
     ];
+    return imageUrls[index % imageUrls.length];
+}
 
-    for (let i = 0; i < 100; i++) {
-        const post = document.createElement('div');
-        post.classList.add('post');
+function createLikes() {
+    const likes = document.createElement('div');
+    likes.classList.add('likes');
+    likes.innerHTML = `
+        <img src="heart.png" alt="Like" onclick="likePost(this)">
+        <span>0</span>
+    `;
+    return likes;
+}
 
-        const profile = document.createElement('div');
-        profile.classList.add('profile');
-        profile.innerHTML = `
-            <img src="profile${i % 5 + 1}.jpg" alt="Profile Photo">
-            <h2>RandomUser${i + 1}</h2>
-        `;
-        post.appendChild(profile);
+function createComments() {
+    const comments = document.createElement('div');
+    comments.classList.add('comments');
+    comments.innerHTML = `
+        <input type="text" placeholder="Add a comment...">
+        <button onclick="addComment(this)">Post</button>
+    `;
+    return comments;
+}
 
-        const image = document.createElement('img');
-        image.src = imageUrls[i % imageUrls.length];
-        image.alt = 'Post Image';
-        post.appendChild(image);
+function likePost(likeButton) {
+    const likesCount = likeButton.nextElementSibling;
+    let currentLikes = parseInt(likesCount.textContent);
+    currentLikes++;
+    likesCount.textContent = currentLikes;
+}
 
-        const actions = document.createElement('div');
-        actions.classList.add('actions');
-        actions.innerHTML = `
-            <div class="likes">
-                <img src="heart.png" alt="Like">
-                <span>${Math.floor(Math.random() * 1000)}</span>
-            </div>
-            <div class="comments">
-                <input type="text" placeholder="Add a comment...">
-                <button>Post</button>
-            </div>
-        `;
-        post.appendChild(actions);
-
-        const commentsSection = document.createElement('div');
-        commentsSection.classList.add('comments-section');
-        post.appendChild(commentsSection);
-
-        postsContainer.appendChild(post);
+function addComment(button) {
+    const post = button.closest('.post');
+    const commentInput = post.querySelector('.comments input');
+    const commentText = commentInput.value.trim();
+    if (commentText !== '') {
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+        commentElement.textContent = commentText;
+        const commentsSection = post.querySelector('.comments-section');
+        commentsSection.appendChild(commentElement);
+        commentInput.value = '';
     }
-});
-
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    const likeButtons = document.querySelectorAll('.likes img');
-    const commentInputs = document.querySelectorAll('.comments input');
-    const commentButtons = document.querySelectorAll('.comments button');
-    
-    likeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const likeCount = this.nextElementSibling;
-            let currentLikes = parseInt(likeCount.textContent);
-            currentLikes++;
-            likeCount.textContent = currentLikes;
-        });
-    });
-
-    commentButtons.forEach((button, index) => {
-        button.addEventListener('click', function() {
-            const commentInput = commentInputs[index];
-            const commentList = document.createElement('div');
-            commentList.classList.add('comment');
-            commentList.textContent = commentInput.value;
-            commentInput.value = '';
-            const post = this.closest('.post');
-            const commentsSection = post.querySelector('.comments-section');
-            commentsSection.appendChild(commentList);
-        });
-    });
-});
+}
